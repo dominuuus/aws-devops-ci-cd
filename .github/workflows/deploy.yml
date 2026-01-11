@@ -30,9 +30,13 @@ jobs:
         run: |
           aws cloudformation deploy \
             --template-file cloudformation/template.yaml \
-            --stack-name atividade3-stack \
-            --capabilities CAPABILITY_NAMED_IAM \
+            --stack-name aws-devops-ci-cd-${{ github.run_number }} \
+            --capabilities CAPABILITY_IAM \
             --parameter-overrides \
               KeyName=${{ secrets.KEY_PAIR_NAME }} \
+              VpcId=${{ secrets.VPC_ID }} \
+              PublicSubnet1=${{ secrets.PUBLIC_SUBNET_1 }} \
+              PublicSubnet2=${{ secrets.PUBLIC_SUBNET_2 }} \
+              PrivateSubnets="${{ secrets.PRIVATE_SUBNETS }}" \
               DBUsername=${{ secrets.DB_USERNAME }} \
               DBPassword=${{ secrets.DB_PASSWORD }}
