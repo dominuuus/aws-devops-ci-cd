@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: CloudFormation EC2 + ALB + RDS MySQL
+Description: CloudFormation EC2 + ALB + RDS MySQL (CI-CD com GitHub Actions e CloudFormation)
 
 Parameters:
   KeyName:
