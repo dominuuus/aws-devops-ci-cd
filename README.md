@@ -11,12 +11,12 @@ Todo o processo de deploy é realizado automaticamente a partir de eventos de pu
 ---
 
 ## Estrutura do Repositório
-.
-├── .github/
-│   └── workflows/
-│       └── deploy.yml
-├── cloudformation/
-│   └── template.yaml
+.  
+├── .github/  
+│   └── workflows/  
+│       └── deploy.yml  
+├── cloudformation/  
+│   └── template.yaml  
 └── README.md
 
 - `template.yaml`: define toda a infraestrutura AWS utilizando CloudFormation
@@ -92,3 +92,4 @@ Para evitar custos desnecessários, recomenda-se remover a stack após os testes
 aws cloudformation delete-stack --stack-name aws-devops-ci-cd ```
 
 
+> Última atualização para disparo do pipeline CI/CD.
