@@ -1,0 +1,38 @@
+name: Deploy CloudFormation Stack
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar credenciais AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Validar template CloudFormation
+        run: |
+          aws cloudformation validate-template \
+            --template-body file://cloudformation/template.yaml
+
+      - name: Deploy da infraestrutura
+        run: |
+          aws cloudformation deploy \
+            --template-file cloudformation/template.yaml \
+            --stack-name atividade3-stack \
+            --capabilities CAPABILITY_NAMED_IAM \
+            --parameter-overrides \
+              KeyName=${{ secrets.KEY_PAIR_NAME }} \
+              DBUsername=${{ secrets.DB_USERNAME }} \
+              DBPassword=${{ secrets.DB_PASSWORD }}
